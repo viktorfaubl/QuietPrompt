@@ -2,9 +2,6 @@
 {
     internal class TrayMenu
     {
-        private static NotifyIcon? _trayIcon;
-        private static Thread? _trayThread;
-
         internal static NotifyIcon StartTrayMenu()
         {
             // Use the SIID_SERVER stock icon for the tray icon
