@@ -172,19 +172,11 @@ Now I’m sharing it in case others find themselves in the same situation — or
 
 
 
-\## 📄 License
+\## License
 
-
-
-\*\*Free for personal use.\*\*
-
-Commercial use is \*\*prohibited\*\* without explicit permission.
-
-
-
-> This includes corporate usage, automated testing, or integration in company tools.
-
-
+QuietPrompt is licensed for personal and educational use only.  
+Commercial or corporate use is prohibited without written permission.  
+See [LICENSE.md](LICENSE.md) for details.
 
 ---
 
