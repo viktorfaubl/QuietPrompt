@@ -9,7 +9,7 @@ QuietPrompt captures what you see or say, runs it through OCR/transcription, sen
 
  ## ✨ Features
 
- -  * *🖼️ Screen OCR * * — Capture full or partial screen and extract text via Tesseract or Azure OCR.
+ -  * *🖼️ Screen OCR * * — Capture full or partial screen and extract text via Tesseract.
  -  * *🎙️ Voice Input * * — Dictate tasks to your LLM using Whisper.
  -  * *⌨️ Text Input * * — Type prompts manually when needed.
  -  * *🧠 LLM Integration * * — Works with any local llama-server-compatible GGUF model.
@@ -113,13 +113,13 @@ Soon
 
  ## 🙋 FAQ
 
- * *Q: * * Is this a Copilot replacement?  
+ * *Q: * * Is this a Copilot replacement?
  * *A: * * It's not an IDE plugin — it works alongside anything by pulling in prompts from  *your screen, mic or clipboard *.
 
- * *Q: * * Does it work offline?  
+ * *Q: * * Does it work offline?
  * *A: * * Yes. Models run locally. OCR is also local.
 
- * *Q: * * Can I customize models or prompts?  
+ * *Q: * * Can I customize models or prompts?
  * *A: * * Absolutely. It’s open-ended. Add any LLM or workflow behind the scenes.
 
 --- 
