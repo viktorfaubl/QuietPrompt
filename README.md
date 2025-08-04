@@ -99,7 +99,9 @@ QuietPrompt sees what you see — and responds in full privacy.
 
  ## 📸 Screenshots
 
-Soon
+![Overlay](./assets/Overlay.png)
+![Tray Menu](./assets/SysTray.png)
+![Loader](./assets/Loader.png)
 
 ---
 
