@@ -72,6 +72,16 @@ namespace QuietPrompt
         //for local llm-server queries
         private static readonly HttpClient httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(600) };
 
+        // Add: Centralized app data directory for models and binaries
+        private static readonly string AppDataDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "QuietPrompt"
+        );
+        private static readonly string LlmModelPath = Path.Combine(AppDataDir, "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf");
+        private static readonly string WhisperModelPath = Path.Combine(AppDataDir, "ggml-base-q8_0.bin");
+        private static readonly string LlamaDir = Path.Combine(AppDataDir, "llama");
+        private static readonly string LlamaExePath = Path.Combine(LlamaDir, "llama-server.exe");
+
         #endregion
 
         #region Main Entry
@@ -84,7 +94,7 @@ namespace QuietPrompt
 
             EnsureResources().Wait();
 
-            _companionProcess = StartLlama("llama\\llama-server.exe", "--model Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf --port 11434");
+            _companionProcess = StartLlama(LlamaExePath, $"--model \"{LlmModelPath}\" --port 11434");
 
             WaitForMistralReady().GetAwaiter().GetResult();
             // Free (hide) the console window
@@ -92,7 +102,6 @@ namespace QuietPrompt
 
             ToggleOverlay();
 
-            
             // Run hotkey message loop in a background thread
             var hotkeyThread = new Thread(HotkeyMessageLoop)
             {
@@ -106,7 +115,6 @@ namespace QuietPrompt
             //Application.SetCompatibleTextRenderingDefault(false);
 
             var trayIcon = TrayMenu.StartTrayMenu();
-            
 
             Application.ApplicationExit += OnApplicationExit;
             Application.Run(); // This keeps the app running for the tray menu
@@ -203,13 +211,15 @@ namespace QuietPrompt
 
         private static async Task EnsureResources()
         {
+            Directory.CreateDirectory(AppDataDir);
+            Directory.CreateDirectory(LlamaDir);
+
             // LLM model
-            string modelPath = "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
             string modelUrl = "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf?download=true";
-            if (!File.Exists(modelPath))
+            if (!File.Exists(LlmModelPath))
             {
                 Console.WriteLine("Model file not found. Downloading...");
-                await DownloadFileWithProgress(modelUrl, modelPath);
+                await DownloadFileWithProgress(modelUrl, LlmModelPath);
                 Console.WriteLine("\nDownload complete.");
             }
             else
@@ -218,12 +228,11 @@ namespace QuietPrompt
             }
 
             // Whisper model
-            string whisperModelPath = "ggml-base-q8_0.bin";
             string whisperModelUrl = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base-q8_0.bin?download=true";
-            if (!File.Exists(whisperModelPath))
+            if (!File.Exists(WhisperModelPath))
             {
                 Console.WriteLine("Whisper model not found. Downloading...");
-                await DownloadFileWithProgress(whisperModelUrl, whisperModelPath);
+                await DownloadFileWithProgress(whisperModelUrl, WhisperModelPath);
                 Console.WriteLine("\nWhisper model download complete.");
             }
             else
@@ -232,15 +241,13 @@ namespace QuietPrompt
             }
 
             // Llama server
-            string llamaExePath = Path.Combine("llama", "llama-server.exe");
-            if (!File.Exists(llamaExePath))
+            if (!File.Exists(LlamaExePath))
             {
                 Console.WriteLine("llama-server.exe not found. Downloading and extracting required binaries...");
-                Directory.CreateDirectory("llama");
                 string llamaZipUrl = "https://github.com/ggml-org/llama.cpp/releases/download/b6081/llama-b6081-bin-win-cuda-12.4-x64.zip";
                 string cudartZipUrl = "https://github.com/ggml-org/llama.cpp/releases/download/b6081/cudart-llama-bin-win-cuda-12.4-x64.zip";
-                await DownloadAndExtractZip(llamaZipUrl, "llama");
-                await DownloadAndExtractZip(cudartZipUrl, "llama");
+                await DownloadAndExtractZip(llamaZipUrl, LlamaDir);
+                await DownloadAndExtractZip(cudartZipUrl, LlamaDir);
                 Console.WriteLine("llama-server.exe and dependencies downloaded and extracted.");
             }
             else
@@ -750,8 +757,7 @@ namespace QuietPrompt
 
             if (_whisperFactory == null)
             {
-                var modelPath = "ggml-base-q8_0.bin";
-                _whisperFactory = WhisperFactory.FromPath(modelPath, WhisperFactoryOptions.Default);
+                _whisperFactory = WhisperFactory.FromPath(WhisperModelPath, WhisperFactoryOptions.Default);
             }
 
             var buffer = new List<byte>();
