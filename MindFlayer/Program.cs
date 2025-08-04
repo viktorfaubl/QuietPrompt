@@ -96,7 +96,7 @@ namespace QuietPrompt
 
             _companionProcess = StartLlama(LlamaExePath, $"--model \"{LlmModelPath}\" --port 11434");
 
-            WaitForMistralReady().GetAwaiter().GetResult();
+            WaitForQwenReady().GetAwaiter().GetResult();
             // Free (hide) the console window
             FreeConsole();
 
@@ -165,9 +165,9 @@ namespace QuietPrompt
 
         #region Console Helpers
 
-        private static async Task WaitForMistralReady()
+        private static async Task WaitForQwenReady()
         {
-            Console.WriteLine("Loading Mistral, please wait...");
+            Console.WriteLine("Loading Qwen, please wait...");
 
             bool isReady = false;
             char[] spinner = new[] { '|', '/', '-', '\\' };
@@ -178,7 +178,7 @@ namespace QuietPrompt
                 try
                 {
                     var payload = new StringContent(
-                        "{\"model\": \"mistral\", \"prompt\": \"ping\", \"n_predict\": 1}",
+                        "{\"model\": \"Qwen\", \"prompt\": \"ping\", \"n_predict\": 1}",
                         Encoding.UTF8,
                         "application/json"
                     );
@@ -198,11 +198,11 @@ namespace QuietPrompt
                     Console.WriteLine("LLM ERROR, exiting.");
                     Environment.Exit(1);
                 }
-                Console.Write($"\rLoading Mistral... {spinner[spinnerIndex++ % spinner.Length]}");
+                Console.Write($"\rLoading Qwen... {spinner[spinnerIndex++ % spinner.Length]}");
                 await Task.Delay(1000);
             }
 
-            Console.WriteLine("Mistral ping sucessfull. Ready.");
+            Console.WriteLine("Qwen ping sucessfull. Ready.");
         }
 
         #endregion
@@ -657,7 +657,7 @@ namespace QuietPrompt
                 allText.AddRange(UserTextInputs);
 
             string concatenated = string.Join("\n", allText);
-            SafeWriteLine("All transcripts sent. Mistral is thinking, please wait (on a 3060 Ti with 8GB RAM and 32GB RAM it can be around 1 min / screenshot)");
+            SafeWriteLine("All transcripts sent. Qwen is thinking, please wait (on a 3060 Ti with 8GB RAM and 32GB RAM it can be around 1 min / screenshot)");
             SendOcrResultToLlm(concatenated);
         }
 
@@ -820,7 +820,7 @@ namespace QuietPrompt
                 }
             });
 
-            SafeWriteLine("Microphone transcription started. Press Ctrl+F10 again to stop.");
+            SafeWriteLine("Microphone transcription started. Press Ctrl+F9 again to stop.");
         }
 
         private static void StopMicTranscriptionAndStore()
