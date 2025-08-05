@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Output
 *.iss
+/.github
+/MindFlayer/instructions.md
