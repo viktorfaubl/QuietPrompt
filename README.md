@@ -41,10 +41,10 @@ QuietPrompt captures what you see or say, runs it through OCR/transcription, sen
 4 .  * *Use hotkeys or tray menu to interact * *
  *
 5 .  * *Manual model download, if you want to pre-download the models used:
- - place it to the app root:
-	https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-Q4 _K _M.gguf?download=true
-	https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base-q8 _0.bin?download=true
- - place it under llama folder and unzip:
+ - place it to the appdata/local/quietprompt folder:
+	https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf?download=true
+	https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base-q8_0.bin?download=true
+ - place it under appdata/local/quietprompt/llama folder and unzip:
 	https://github.com/ggml-org/llama.cpp/releases/download/b6081/llama-b6081-bin-win-cuda-12.4-x64.zip
 	https://github.com/ggml-org/llama.cpp/releases/download/b6081/cudart-llama-bin-win-cuda-12.4-x64.zip
 
@@ -55,7 +55,7 @@ QuietPrompt captures what you see or say, runs it through OCR/transcription, sen
  ## 🧠 Recommended Models
 
  -  * *LLM * *: Qwen 30B A3B Q4 _K _M (`gguf`, llama-server compatible)
- -  * *OCR * *: Tesseract (bundled) or Azure Vision (via API key)
+ -  * *OCR * *: Tesseract (bundled)
  -  * *Transcription * *: Whisper (`ggml-base-q8 _0` or above)
 
 ---
@@ -116,7 +116,7 @@ QuietPrompt sees what you see — and responds in full privacy.
  ## 🙋 FAQ
 
  * *Q: * * Is this a Copilot replacement?
- * *A: * * It's not an IDE plugin — it works alongside anything by pulling in prompts from  *your screen, mic or clipboard *.
+ * *A: * * It's not an IDE plugin — it works alongside anything by pulling in prompts from  *your screen, mic or clipboard.
 
  * *Q: * * Does it work offline?
  * *A: * * Yes. Models run locally. OCR is also local.
@@ -128,7 +128,7 @@ QuietPrompt sees what you see — and responds in full privacy.
 
  ## 👏 Credits
 
-Built by  [Viktor Faubl](https://linkedin.com/in/...), powered by:
+Built by  [Viktor Faubl](https://www.linkedin.com/in/viktorfaubl/), powered by:
 
  -  [llama.cpp / llama-server](https://github.com/ggerganov/llama.cpp)
  -  [Whisper.cpp](https://github.com/ggerganov/whisper.cpp)
@@ -136,3 +136,8 @@ Built by  [Viktor Faubl](https://linkedin.com/in/...), powered by:
  -  [Icon](https://alexiuz.com/)
 
 ---
+
+## Contact
+
+Feel free to reach out via [LinkedIn](https://www.linkedin.com/in/viktorfaubl/) or open an issue on this repo.
+Or write me a mail : viktor.faubl@gmail.com
