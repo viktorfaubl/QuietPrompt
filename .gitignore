@@ -365,3 +365,4 @@ FodyWeavers.xsd
 *.iss
 /.github
 /MindFlayer/instructions.md
+/.mcp.json
