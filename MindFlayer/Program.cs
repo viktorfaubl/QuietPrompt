@@ -94,7 +94,7 @@ namespace QuietPrompt
 
             EnsureResources().Wait();
 
-            _companionProcess = StartLlama(LlamaExePath, $"--model \"{LlmModelPath}\" --port 11434");
+            _companionProcess = StartLlama(LlamaExePath, $"--model \"{LlmModelPath}\" --port 11434 --n-gpu-layers 30 --log-disable");
 
             WaitForQwenReady().GetAwaiter().GetResult();
             // Free (hide) the console window
