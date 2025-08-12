@@ -4,7 +4,7 @@ using System.IO.Compression;
 
 namespace QuietPrompt
 {
-    internal static class ResourceManager
+    internal static class ResourceManager 
     {
         public static readonly string AppDataDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
