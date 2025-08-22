@@ -11,7 +11,7 @@ namespace QuietPrompt
     internal static class OcrManager
     {
         public enum OcrEngine { Azure, Tesseract }
-        public static OcrEngine SelectedOcrEngine = OcrEngine.Azure;
+        public static OcrEngine SelectedOcrEngine = OcrEngine.Tesseract;
 
         public static void CaptureSecondMonitorAndAppendOcr(List<string> ocrResults)
         {
